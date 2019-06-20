@@ -72,7 +72,7 @@ if [ $IMAGE = "" ]; then
         },
         {
           "name": "Release",
-          "value": "'"[\`v$CURRENT_DATE\`](https://github.com/TWLBot/Builds/releases/tag/v$CURRENT_DATE)"'",
+          "value": "'"[\`v$CURRENT_DATE\`](https://github.com/Universal-Team/extras/releases/tag/v$CURRENT_DATE)"'",
           "inline": true
         }
       ],
@@ -106,7 +106,7 @@ else
         },
         {
           "name": "Release",
-          "value": "'"[\`v$CURRENT_DATE\`](https://github.com/TWLBot/Builds/releases/tag/v$CURRENT_DATE)"'",
+          "value": "'"[\`v$CURRENT_DATE\`](https://github.com/Universal-Team/extras/releases/tag/v$CURRENT_DATE)"'",
           "inline": false
         }
       ],
