@@ -48,7 +48,7 @@ TIMESTAMP=$(date --utc +%FT%TZ)
 if [ $IMAGE = "" ]; then
   WEBHOOK_DATA='{
     "username": "",
-    "avatar_url": "https://pbs.twimg.com/profile_images/1013370642417225728/BpqlqOrE_400x400.jpg",
+    "avatar_url": "https://docs.microsoft.com/en-us/azure/devops/_img/icons/project-icon.png",
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
@@ -82,7 +82,7 @@ if [ $IMAGE = "" ]; then
 else
   WEBHOOK_DATA='{
     "username": "",
-    "avatar_url": "https://pbs.twimg.com/profile_images/1013370642417225728/BpqlqOrE_400x400.jpg",
+    "avatar_url": "https://docs.microsoft.com/en-us/azure/devops/_img/icons/project-icon.png",
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
