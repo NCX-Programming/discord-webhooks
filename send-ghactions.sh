@@ -26,11 +26,11 @@ case $1 in
     ;;
 esac
 
-AUTHOR_NAME="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%aN")"
-COMMITTER_NAME="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%cN")"
-COMMIT_SUBJECT="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%s")"
-COMMIT_MESSAGE="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%b")"
-SOURCEBRANCH=${BUILD_SOURCEBRANCH##*/}
+AUTHOR_NAME="$(git log -1 "${{ github.sha }}" --pretty="%aN")"
+COMMITTER_NAME="$(git log -1 "${{ github.sha }}" --pretty="%cN")"
+COMMIT_SUBJECT="$(git log -1 "${{ github.sha }}" --pretty="%s")"
+COMMIT_MESSAGE="$(git log -1 "${{ github.sha }}" --pretty="%b")"
+SOURCEBRANCH=${{ github.sha }}
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="${{ github.actor }} authored & committed"
