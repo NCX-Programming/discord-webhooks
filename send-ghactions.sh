@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$2" ]; then
-  echo -e "WARNING!!\nYou need to pass the WEBHOOK_URL environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DS-Homebrew/discord-webhooks" && exit
+  echo -e "WARNING!!\nYou need to pass the ${{ secrets.WEBHOOK_URL }} environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DS-Homebrew/discord-webhooks" && exit
 fi
 
 echo -e "[Webhook]: Sending webhook to Discord...\\n";
@@ -32,7 +32,7 @@ COMMIT_SUBJECT="$(git log -1 "${{ github.sha }}" --pretty="%s")"
 COMMIT_MESSAGE="$(git log -1 "${{ github.sha }}" --pretty="%b")"
 SOURCEBRANCH=${{ github.sha }}
 
-if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
+if [ "${{ github.actor }}" == "$COMMITTER_NAME" ]; then
   CREDITS="${{ github.actor }} authored & committed"
 else
   CREDITS="${{ github.actor }} authored & someone else committed"
@@ -52,7 +52,7 @@ if [ $IMAGE = "" ]; then
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${{ github.event_name }}"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -86,7 +86,7 @@ else
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${{ github.event_name }}"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -112,5 +112,5 @@ else
   }'
 fi
 
-(curl --fail --progress-bar -A "Azure-Webhook" -H Content-Type:application/json -H X-Author:k3rn31p4nic#8383 -d "$WEBHOOK_DATA" "$2" \
+(curl --fail --progress-bar -A "Github-Actions-Webhook" -H Content-Type:application/json -H X-Author:k3rn31p4nic#8383 -d "$WEBHOOK_DATA" "$2" \
   && echo -e "\\n[Webhook]: Successfully sent the webhook.") || echo -e "\\n[Webhook]: Unable to send webhook."
