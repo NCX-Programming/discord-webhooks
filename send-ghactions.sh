@@ -26,16 +26,16 @@ case $1 in
     ;;
 esac
 
-AUTHOR_NAME="$(git log -1 "${{ github.sha }}" --pretty="%aN")"
-COMMITTER_NAME="$(git log -1 "${{ github.sha }}" --pretty="%cN")"
-COMMIT_SUBJECT="$(git log -1 "${{ github.sha }}" --pretty="%s")"
-COMMIT_MESSAGE="$(git log -1 "${{ github.sha }}" --pretty="%b")"
-SOURCEBRANCH=${{ github.sha }}
+AUTHOR_NAME="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%aN")"
+COMMITTER_NAME="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%cN")"
+COMMIT_SUBJECT="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%s")"
+COMMIT_MESSAGE="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%b")"
+SOURCEBRANCH=${BUILD_SOURCEBRANCH##*/}
 
-if [ "${{ github.actor }}" == "$COMMITTER_NAME" ]; then
-  CREDITS="${{ github.actor }} authored & committed"
+if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
+  CREDITS="$AUTHOR_NAME authored & committed"
 else
-  CREDITS="${{ github.actor }} authored & someone else committed"
+  CREDITS="$AUTHOR_NAME authored & $COMMITTER_NAME committed"
 fi
 
 TIMESTAMP=$(date --utc +%FT%TZ)
@@ -46,22 +46,22 @@ if [ $IMAGE = "" ]; then
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"${{ github.sha }}"' '"${{ github.event_name }}"' - '"${{ github.repository }}"'",
+        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
         "url": "'"https://github.com/${{ github.repository}}/commit/${{ github.sha }}/checks"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${{ github.event_name }}"\\n\\n"$CREDITS"'",
+      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
-          "value": "'"[\`${{ github.sha }}\`](https://github.com/${[ github.repository }}/commit/${{ github.sha }})"'",
+          "value": "'"[\`${BUILD_SOURCEVERSION:0:7}\`](https://github.com/$REPOSITORY_NAME/commit/$BUILD_SOURCEVERSION)"'",
           "inline": true
         },
         {
           "name": "Branch",
-          "value": "'"[\`${{ github.ref }}`](https://github.com/${{ github.repository }}/tree/${{ github.ref }})"'",
+          "value": "'"[\`$SOURCEBRANCH\`](https://github.com/$REPOSITORY_NAME/tree/$SOURCEBRANCH)"'",
           "inline": true
         },
         {
@@ -80,22 +80,22 @@ else
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"${{ github.sha }}"' '"${{ github.event_name }}"' - '"${{ github.repository }}"'",
+        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
         "url": "'"https://github.com/${{ github.repository}}/commit/${{ github.sha }}/checks"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${{ github.event_name }}"\\n\\n"$CREDITS"'",
+      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
-          "value": "'"[\`${{ github.sha }}\`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})"'",
+          "value": "'"[\`${BUILD_SOURCEVERSION:0:7}\`](https://github.com/$REPOSITORY_NAME/commit/$BUILD_SOURCEVERSION)"'",
           "inline": true
         },
         {
           "name": "Branch",
-          "value": "'"[\`${{ github.ref }}\`](https://github.com/${{ github.repository }}/tree/${{ github.ref }})"'",
+          "value": "'"[\`$SOURCEBRANCH\`](https://github.com/$REPOSITORY_NAME/tree/$SOURCEBRANCH)"'",
           "inline": true
         },
         {
