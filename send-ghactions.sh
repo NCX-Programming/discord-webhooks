@@ -33,9 +33,9 @@ COMMIT_MESSAGE="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%b")"
 SOURCEBRANCH=${BUILD_SOURCEBRANCH##*/}
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
-  CREDITS="$github.actor authored & committed"
+  CREDITS="${{ github.actor }} authored & committed"
 else
-  CREDITS="$github.actor authored & $COMMITTER_NAME committed"
+  CREDITS="${{ github.actor }} authored & someone else committed"
 fi
 
 TIMESTAMP=$(date --utc +%FT%TZ)
@@ -46,8 +46,8 @@ if [ $IMAGE = "" ]; then
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
-        "url": "'"https://example.org"'",
+        "name": "Build '"${{ github.sha }}"' '"${{ github.event_name }}"' - '"${{ github.repository }}"'",
+        "url": "'"https://github.com/${{ github.repository}}/commit/${{ github.sha }}/checks"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
@@ -56,12 +56,12 @@ if [ $IMAGE = "" ]; then
       "fields": [
         {
           "name": "Commit",
-          "value": "'"[\`${BUILD_SOURCEVERSION:0:7}\`](https://github.com/$REPOSITORY_NAME/commit/$BUILD_SOURCEVERSION)"'",
+          "value": "'"[\`${{ github.sha }}\`](https://github.com/${[ github.repository }}/commit/${{ github.sha }})"'",
           "inline": true
         },
         {
           "name": "Branch",
-          "value": "'"[\`$SOURCEBRANCH\`](https://github.com/$REPOSITORY_NAME/tree/$SOURCEBRANCH)"'",
+          "value": "'"[\`${{ github.ref }}`](https://github.com/${{ github.repository }}/tree/${{ github.ref }})"'",
           "inline": true
         },
         {
@@ -80,8 +80,8 @@ else
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"github.sha"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
-        "url": "'"https://dev.azure.com/universal-team/Builds/_build/results?buildId=$BUILD_BUILDID"'",
+        "name": "Build '"${{ github.sha }}"' '"${{ github.event_name }}"' - '"${{ github.repository }}"'",
+        "url": "'"https://github.com/${{ github.repository}}/commit/${{ github.sha }}/checks"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
@@ -90,12 +90,12 @@ else
       "fields": [
         {
           "name": "Commit",
-          "value": "'"[\`${BUILD_SOURCEVERSION:0:7}\`](https://github.com/$REPOSITORY_NAME/commit/$BUILD_SOURCEVERSION)"'",
+          "value": "'"[\`${{ github.sha }}\`](https://github.com/${{ github.repository }}/commit/${{ github.sha }})"'",
           "inline": true
         },
         {
           "name": "Branch",
-          "value": "'"[\`$SOURCEBRANCH\`](https://github.com/$REPOSITORY_NAME/tree/$SOURCEBRANCH)"'",
+          "value": "'"[\`${{ github.ref }}\`](https://github.com/${{ github.repository }}/tree/${{ github.ref }})"'",
           "inline": true
         },
         {
