@@ -47,7 +47,7 @@ if [ $IMAGE = "" ]; then
       "color": '$EMBED_COLOR',
       "author": {
         "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
-        "url": "'"https://github.com/${{ github.repository}}/commit/${{ github.sha }}/checks"'",
+        "url": "'"https://www.example.org"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
@@ -81,7 +81,7 @@ else
       "color": '$EMBED_COLOR',
       "author": {
         "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
-        "url": "'"https://github.com/${{ github.repository}}/commiff${{ github.sha }}/checks"'",
+        "url": "'"https://www.example.org"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
