@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$2" ]; then
-  echo -e "WARNING!!\nYou need to pass the ${{ secrets.WEBHOOK_URL }} environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DS-Homebrew/discord-webhooks" && exit
+  echo -e "WARNING!!\nYou need to pass the WEBHOOK_URL environment variable as the second argument to this script.\nFor details & guide, visit: https://github.com/DS-Homebrew/discord-webhooks" && exit
 fi
 
 echo -e "[Webhook]: Sending webhook to Discord...\\n";
@@ -81,7 +81,7 @@ else
       "color": '$EMBED_COLOR',
       "author": {
         "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
-        "url": "'"https://github.com/${{ github.repository}}/commit/${{ github.sha }}/checks"'",
+        "url": "'"https://github.com/${{ github.repository}}/commiff${{ github.sha }}/checks"'",
         "icon_url": "'$AVATAR'"
       },
       "title": "'"$COMMIT_SUBJECT"'",
