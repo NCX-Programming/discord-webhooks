@@ -26,10 +26,10 @@ case $1 in
     ;;
 esac
 
-AUTHOR_NAME="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%aN")"
-COMMITTER_NAME="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%cN")"
-COMMIT_SUBJECT="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%s")"
-COMMIT_MESSAGE="$(git log -1 "$BUILD_SOURCEVERSION" --pretty="%b")"
+AUTHOR_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%aN")"
+COMMITTER_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%cN")"
+COMMIT_SUBJECT="$(git log -1 "$GITHUB_SHA" --pretty="%s")"
+COMMIT_MESSAGE="$(git log -1 "$GITHUB_SHA" --pretty="%b")"
 SOURCEBRANCH=${BUILD_SOURCEBRANCH##*/}
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
@@ -46,7 +46,7 @@ if [ $IMAGE = "" ]; then
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
+        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
         "url": "'"https://www.example.org"'",
         "icon_url": "'$AVATAR'"
       },
@@ -56,12 +56,12 @@ if [ $IMAGE = "" ]; then
       "fields": [
         {
           "name": "Commit",
-          "value": "'"[\`${BUILD_SOURCEVERSION:0:7}\`](https://github.com/$REPOSITORY_NAME/commit/$BUILD_SOURCEVERSION)"'",
+          "value": "'"[\`${GITHUB_SHA:0:7}\`](https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA)"'",
           "inline": true
         },
         {
           "name": "Branch",
-          "value": "'"[\`$SOURCEBRANCH\`](https://github.com/$REPOSITORY_NAME/tree/$SOURCEBRANCH)"'",
+          "value": "'"[\`$GITHUB_REF\`](https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_REF)"'",
           "inline": true
         },
         {
@@ -80,7 +80,7 @@ else
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$REPOSITORY_NAME"'",
+        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
         "url": "'"https://www.example.org"'",
         "icon_url": "'$AVATAR'"
       },
@@ -90,12 +90,12 @@ else
       "fields": [
         {
           "name": "Commit",
-          "value": "'"[\`${BUILD_SOURCEVERSION:0:7}\`](https://github.com/$REPOSITORY_NAME/commit/$BUILD_SOURCEVERSION)"'",
+          "value": "'"[\`${GITHUB_SHA:0:7}\`](https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA)"'",
           "inline": true
         },
         {
           "name": "Branch",
-          "value": "'"[\`$SOURCEBRANCH\`](https://github.com/$REPOSITORY_NAME/tree/$SOURCEBRANCH)"'",
+          "value": "'"[\`$GITHUB_REF\`](https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_REF)"'",
           "inline": true
         },
         {
