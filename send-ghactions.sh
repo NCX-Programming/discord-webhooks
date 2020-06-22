@@ -30,7 +30,6 @@ AUTHOR_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%aN")"
 COMMITTER_NAME="$(git log -1 "$GITHUB_SHA" --pretty="%cN")"
 COMMIT_SUBJECT="$(git log -1 "$GITHUB_SHA" --pretty="%s")"
 COMMIT_MESSAGE="$(git log -1 "$GITHUB_SHA" --pretty="%b")"
-SOURCEBRANCH=${BUILD_SOURCEBRANCH##*/}
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
