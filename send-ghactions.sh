@@ -53,7 +53,7 @@ if [ $IMAGE = "" ]; then
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${COMMIT_MESSAGE#*$'\n'}"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
@@ -87,7 +87,7 @@ else
       },
       "title": "'"$COMMIT_SUBJECT"'",
       "url": "'"$URL"'",
-      "description": "'"${COMMIT_MESSAGE//$'\n'/ }"\\n\\n"$CREDITS"'",
+      "description": "'"${COMMIT_MESSAGE#*$'\n'}"\\n\\n"$CREDITS"'",
       "fields": [
         {
           "name": "Commit",
