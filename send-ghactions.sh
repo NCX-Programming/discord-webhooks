@@ -64,11 +64,6 @@ if [ $IMAGE = "" ]; then
           "name": "Branch",
           "value": "'"[\`$GITHUB_REF\`](https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_REF)"'",
           "inline": true
-        },
-        {
-          "name": "Release",
-          "value": "'"[\`v$CURRENT_DATE\`](https://github.com/Universal-Team/extras/releases/tag/v$CURRENT_DATE)"'",
-          "inline": true
         }
       ],
       "timestamp": "'"$TIMESTAMP"'"
@@ -98,11 +93,6 @@ else
           "name": "Branch",
           "value": "'"[\`$GITHUB_REF\`](https://github.com/$GITHUB_REPOSITORY/tree/$GITHUB_REF)"'",
           "inline": true
-        },
-        {
-          "name": "Release",
-          "value": "'"[\`v$CURRENT_DATE\`](https://github.com/Universal-Team/extras/releases/tag/v$CURRENT_DATE)"'",
-          "inline": false
         }
       ],
       "image": {
