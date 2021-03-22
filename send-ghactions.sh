@@ -47,7 +47,7 @@ if [ $IMAGE = "" ]; then
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
+        "name": "Build '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
         "url": "'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'",
         "icon_url": "'$AVATAR'"
       },
@@ -76,7 +76,7 @@ else
     "embeds": [ {
       "color": '$EMBED_COLOR',
       "author": {
-        "name": "Build '"v$CURRENT_DATE"' '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
+        "name": "Build '"$STATUS_MESSAGE"' - '"$GITHUB_REPOSITORY"'",
         "url": "'"https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'",
         "icon_url": "'$AVATAR'"
       },
